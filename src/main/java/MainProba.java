@@ -2,6 +2,8 @@ import java.util.*;
 
 public class MainProba {
     public static void main(String[] args) {
+        //List
+
         String line = "";
         String command = "LIST";
 
