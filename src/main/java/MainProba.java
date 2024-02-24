@@ -24,7 +24,15 @@ public class MainProba {
             //Check command "LIST"
             if (line.matches(command)) {
                 for (Map.Entry<String, List<Long>> entry : phonesBook.entrySet()) {
-                    System.out.println(entry.getKey() + " - " + entry.getValue());
+                    System.out.print(entry.getKey() + " - ");
+                    for (Long number : entry.getValue()) {
+                        if (entry.getValue().get(0) == number) {
+                            System.out.print(number);
+                        } else {
+                            System.out.print(", ".concat(String.valueOf(number)));
+                        }
+                    }
+                    System.out.println();
                 }
             }
 
