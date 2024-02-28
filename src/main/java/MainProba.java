@@ -14,6 +14,7 @@ public class MainProba {
         Long numberLine = 0l;
 
         Map<String, List<Long>> phonesBook = new TreeMap<>();
+        List<String> listPhoneNumbers = new ArrayList<>();
 
         while (!line.matches(command)) {
 
@@ -47,6 +48,7 @@ public class MainProba {
                                     "Введите номер телефона для абонента \"" + line + "\":");
                     line = new Scanner(System.in).nextLine();
                     if (line.matches(regexForPhoneNumber)) {
+                        listPhoneNumbers.add(line);
                         numberLine = Long.parseLong(line);
                         Long finalNumberLine = numberLine;
                         List<Long> numbers = new ArrayList<>() {{
@@ -62,7 +64,7 @@ public class MainProba {
                     for (Map.Entry<String, List<Long>> entry : phonesBook.entrySet()) {
                         if (entry.getKey().equals(nameLine)) {
                             System.out.println("Данное имя уже есть в телефонной книге.\n" +
-                                    "Номер, привязанный к нему \"" + entry.getValue() + "\"\n");
+                                    "Номер[а], привязанный к нему \"" + entry.getValue() + "\"\n");
                         }
                     }
                 }
@@ -74,7 +76,7 @@ public class MainProba {
                 Long finalNumberLine = numberLine;
 
                 //Number is not in the list
-                if (!phonesBook.containsValue(numberLine)) {
+                if (!(listPhoneNumbers.contains(line))) {
                     System.out.println(
                             "Такого номера нет в телефонной книге.\n" +
                                     "Введите имя абонента для номера \"" + numberLine + "\"");
@@ -89,6 +91,7 @@ public class MainProba {
                                 if (entry.getKey().equals(nameLine)) {
                                     System.out.println("Вы хотите ещё добавить номер телефона \"" + numberLine + "\"\n" +
                                             "к имени \"" + nameLine + "\"");
+                                    listPhoneNumbers.add(String.valueOf(numberLine));
                                     entry.getValue().add(numberLine);
                                     System.out.println("Контакт сохранен!\n");
                                 }
@@ -100,6 +103,7 @@ public class MainProba {
                                 add(finalNumberLine);
                             }};
 
+                            listPhoneNumbers.add(line);
                             phonesBook.put(nameLine, numbers);
                             System.out.println("Контакт сохранен!\n");
                         }
@@ -109,7 +113,7 @@ public class MainProba {
                 //Number is in the list
                 else {
                     for (Map.Entry<String, List<Long>> entry : phonesBook.entrySet()) {
-                        if (entry.getValue().equals(numberLine)) {
+                        if (entry.getValue().contains(numberLine)) {
                             System.out.println("Данный номер уже есть в телефонной книге.\n" +
                                     "Имя, привязанное к нему \"" + entry.getKey() + "\"\n");
                         }
